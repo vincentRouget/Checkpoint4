@@ -1,0 +1,5 @@
+En tant qu'utilisateur, je veux pouvoir m'enregistrer et me connecter.
+En tant qu'utilisateur, je veux pouvoir effectuer un challenge de clic.
+En tant qu'utilisateur, je veux pouvoir sauvegarder mes scores.
+En tant qu'utilisateur, je veux pouvoir consulter un classement.
+En tant qu'utilisateur, je veux pouvoir supprimer mon compte.

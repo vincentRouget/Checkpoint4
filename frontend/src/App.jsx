@@ -1,7 +1,9 @@
 import React from "react";
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './pages/Homepage';
-import Accueil from './pages/Accueil';
+import Jeu from './pages/Jeu';
+import Live from './pages/Live';
+import Menu from './pages/Menu';
 
 function App() {
 
@@ -9,8 +11,9 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/accueil" element={<Accueil />} />
-
+        <Route path="/jeu" element={<Jeu />} />
+        <Route path="/live" element={<Live />} />
+        <Route path="/menu" element={<Menu />} />
       </Routes>
     </div>
   );
