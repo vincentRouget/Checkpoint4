@@ -10,14 +10,14 @@ const getUserById = async (req, res) => {
   res.status(200).send(user);
 };
 const postUser = async (req, res) => {
-  const { firstname, lastname, email, password, image_user } = req.body;
-  const users = await usersModel.postModelUser(firstname, lastname, email, password, image_user);
+  const { pseudo, password } = req.body;
+  const users = await usersModel.postModelUser(pseudo, password);
   res.status(201).send("User created");
 };
 const updateUserById = async (req, res) => {
-  const { firstname, lastname, email, password, image_user } = req.body;
+  const { pseudo, password } = req.body;
   const id = parseInt(req.params.id);
-  const user = await usersModel.updateModelUserById(firstname, lastname, email, password, image_user, id);
+  const user = await usersModel.updateModelUserById(pseudo, password, id);
   res.status(200).send("User modified");
 };
 const deleteUserById = async (req, res) => {
@@ -26,8 +26,8 @@ const deleteUserById = async (req, res) => {
   res.status(200).send("User deleted");
 };
 const getUserToSignIn = async (req, res, next) => {
-  const { email } = req.body;
-  const user = await usersModel.getModelUserToSignIn(email);
+  const { pseudo } = req.body;
+  const user = await usersModel.getModelUserToSignIn(pseudo);
   if (user[0] != null) {
     req.user = user[0];
     next();

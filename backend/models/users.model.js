@@ -9,19 +9,19 @@ const getModelUsers = async () => {
 const getModelUserById = async (id) => {
   const [result] = await
     connection
-      .query('SELECT firstname, lastname, email, password, image_user FROM user WHERE idUser = ?', [id]);
+      .query('SELECT * FROM user WHERE idUser = ?', [id]);
   return result;
 };
-const postModelUser = async (firstname, lastname, email, password, image_user) => {
+const postModelUser = async (pseudo, password) => {
   const result = await
     connection
-      .query("INSERT INTO user (firstname, lastname, email, password, image_user) VALUES (?,?,?,?,?)", [firstname, lastname, email, password, image_user]);
+      .query("INSERT INTO user (pseudo, password) VALUES (?,?)", [pseudo, password]);
   return result;
 };
-const updateModelUserById = async (firstname, lastname, email, password, image_user, id) => {
+const updateModelUserById = async (pseudo, email, password, image_user, id) => {
   const [result] = await
     connection
-      .query("UPDATE user SET firstname = ?, lastname = ?, email = ?, password = ?, image_user =? WHERE idUser = ?", [firstname, lastname, email, password, image_user, id]);
+      .query("UPDATE user SET pseudo = ?, password = ? WHERE idUser = ?", [pseudo, password, id]);
   return result;
 };
 const deleteModelUserById = async (id) => {
@@ -33,7 +33,7 @@ const deleteModelUserById = async (id) => {
 const getModelUserToSignIn = async (email) => {
   const [result] = await
     connection
-      .query("SELECT * FROM user WHERE email = ?", [email]);
+      .query("SELECT * FROM user WHERE email = ?", [pseudo]);
   return result;
 };
 
