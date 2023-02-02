@@ -17,20 +17,23 @@ const Scores = ({ display, setDisplay }) => {
             axios
                 .get(`${import.meta.env.VITE_BACKEND_URL}/scores/${id}`, { headers: { Authorization: localStorage.getItem("token") } })
                 .then((res) => {
-                    console.log(res.data);
-                    console.log(user);
                     setData(res.data);
                 })
         };
     };
 
     useEffect(() => {
+        // setDisplay(!display);
+        if (data == []) {
+            setDisplay(!display);
+        }
         getScores();
     }, [user, id, display]);
 
     return (
         <div className='Scores'>
             <h1>Mes Scores</h1>
+            <button onClick={() => console.log(data)}>test</button>
             <h2>{user && user.pseudo}</h2>
             <div className='Scores_tableau'>
                 <table class="demo">
