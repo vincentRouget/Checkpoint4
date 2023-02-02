@@ -18,7 +18,7 @@ const postModelUser = async (pseudo, password) => {
       .query("INSERT INTO user (pseudo, password) VALUES (?,?)", [pseudo, password]);
   return result;
 };
-const updateModelUserById = async (pseudo, email, password, image_user, id) => {
+const updateModelUserById = async (pseudo, password, id) => {
   const [result] = await
     connection
       .query("UPDATE user SET pseudo = ?, password = ? WHERE idUser = ?", [pseudo, password, id]);
@@ -30,10 +30,10 @@ const deleteModelUserById = async (id) => {
       .query("DELETE FROM user WHERE idUser = ?", [id]);
   return result;
 };
-const getModelUserToSignIn = async (email) => {
+const getModelUserToSignIn = async (pseudo) => {
   const [result] = await
     connection
-      .query("SELECT * FROM user WHERE email = ?", [pseudo]);
+      .query("SELECT * FROM user WHERE pseudo = ?", [pseudo]);
   return result;
 };
 
