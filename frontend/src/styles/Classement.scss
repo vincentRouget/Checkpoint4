@@ -1,0 +1,81 @@
+.Scores {
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    h1 {
+        margin-top: 40px;
+        font-size: 60px;
+    }
+
+    &_tableau {
+        // background-color: green;
+        // width: 80%;
+        height: 500px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 40px;
+        margin-bottom: 10px;
+        overflow: scroll;
+        scrollbar-width: none;
+
+        .column {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .demo {
+            border: 2px solid #292828;
+            border-collapse: collapse;
+            // width: 1000px;
+            border-spacing: 2px;
+            padding: 5px;
+
+            .pseudo {
+                font-size: 40px;
+                margin-bottom: 40px;
+                font-style: italic;
+                text-decoration: underline;
+            }
+
+            th {
+                border: 2px solid #292828;
+                padding: 5px;
+                width: 120px;
+                height: 40px;
+                background: #F0F0F0;
+                font-size: 30px;
+            }
+
+            td {
+                border: 2px solid #292828;
+                text-align: center;
+                height: 30px;
+                padding: 5px;
+                background: #FFFFFF;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .fermer {
+        margin-top: 10px;
+
+        .close {
+            width: 200px;
+            height: 100px;
+            font-size: 40px;
+            border-radius: 50px;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+
+        }
+    }
+}

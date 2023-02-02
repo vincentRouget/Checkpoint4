@@ -1,78 +1,78 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import UserContext from "../components/UserContext";
+import UserContext from "../components/context/UserContext";
+import '../styles/Homepage.scss';
 
-const Homepage = () => {
-    // const { user, setUser } = useContext(UserContext);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const Homepage = ({ display, setDisplay }) => {
+
     const navigate = useNavigate();
-    const [visiblePassword, setVisiblePassword] = useState(false);
-    const [isEmailMissing, setIsEmailMissing] = useState(false);
-    const [isPasswordMissing, setIsPasswordMissing] = useState(false);
-    const [isEmailCorrect, setIsEmailCorrect] = useState(false);
+    const { user, setUser } = useContext(UserContext);
+    const [pseudo, setPseudo] = useState('');
+    const [password, setPassword] = useState('');
 
+    const handlePseudo = (e) => {
+        setPseudo(e.target.value);
+    };
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+    };
+    const handleSign = () => {
+        axios
+            .post(`${import.meta.env.VITE_BACKEND_URL}/users`, { pseudo, password, })
+            .then((res) => {
+                setDisplay(!display);
+            })
+    };
     const handleConnect = (e) => {
         e.preventDefault();
-        setIsEmailMissing(false);
-        setIsPasswordMissing(false);
-        setIsEmailCorrect(false);
-        setIsPasswordCorrect(false);
         axios
             .post(`${import.meta.env.VITE_BACKEND_URL}/users/signin`, {
-                email,
+                pseudo,
                 password,
             })
             .then((res) => {
                 const userInfo = res.data;
                 setUser({
-                    idUser: userInfo.user.idUser,
+                    iduser: userInfo.user.iduser,
                     pseudo: userInfo.user.pseudo,
-                    email: userInfo.user.email,
-                    image_user: userInfo.user.image_user,
                 });
                 const { token } = res.data;
                 localStorage.setItem("token", "Bearer " + token);
-                navigate("/plans-de-communication", {
+                navigate("/jeu", {
                     state: {
                         token,
                     },
                 });
             })
-            .catch((err) => {
-                console.error(err);
-                if (err.response.data == "Email and password are required") {
-                    setIsEmailMissing(true);
-                    setIsPasswordMissing(true);
-                }
-                if (err.response.data == "Email is required") setIsEmailMissing(true);
-                if (err.response.data == "Password is required") setIsPasswordMissing(true);
-                if (err.response.data == "User not found") { setIsEmailCorrect(true); setEmail(""); }
-                if (err.response.data == "Wrong password") { setIsPasswordCorrect(true); setPassword(""); }
-            });
     };
-    const handleKeyPress = (e) => {
-        if (e.key === "Enter") {
-            handleClick(e);
-        };
-    };
+
+    useEffect(() => {
+    }, [display]);
 
     return (
         <div className='Homepage'>
-            <div            >
-                <label htmlFor="email">Email</label>
-                <input type={email} name="email" id="email" value={email} onKeyPress={handleKeyPress} required />
-            </div>
-            <div>
-                <label htmlFor="password">Mot de passe</label>
-                <input name="password" id="password" value={password} onKeyPress={handleKeyPress} required />
-            </div>
-            <div>
-                <NavLink to='jeu'>
-                    <button type='submit' onClick={(e) => { handleConnect(e); }}>Se connecter</button>
-                </NavLink>
+            <div className='input'>
+                <div className='label'>
+                    <label htmlFor="pseudo">Pseudo</label>
+                    <input type={pseudo} name="pseudo" id="pseudo" value={pseudo} onChange={handlePseudo} required />
+                </div>
+                <div className='label'>
+                    <label htmlFor="password">Mot de passe</label>
+                    <input type='password' name="password" id="password" value={password} onChange={handlePassword} required />
+                </div>
+                <div className='section'>
+                    <button type='submit'
+                        onClick={(e) => { handleConnect(e); }}
+                    >Se connecter</button>
+                    <NavLink to='/'>
+                        <button type='submit'
+                            onClick={handleSign}
+                        >S'inscrire</button>
+                    </NavLink>
+
+                </div>
             </div>
         </div>
     );

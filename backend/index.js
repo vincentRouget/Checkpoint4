@@ -5,6 +5,7 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const { verifyToken } = require("./auth");
 const usersRouter = require('./routers/users.router');
+const scoreRouter = require('./routers/scores.router');
 
 const port = process.env.APP_PORT ?? 5000;
 
@@ -13,7 +14,7 @@ app.use(express.json());
 
 // Les routes MVC :
 app.use("/users", usersRouter);
-
+app.use("/scores", scoreRouter);
 
 // Les routes authentification / token :
 // app.get("/user-token", (req, res) => {
