@@ -1,27 +1,30 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import UserContext from "../components/context/UserContext";
 import '../styles/Menu.scss';
 
 const Menu = ({ display, setDisplay }) => {
 
-    const id = 3;
-    
+    const { user, setUser } = useContext(UserContext);
+
     const handleDisplay = () => {
         setDisplay(!display);
     };
     const deleteUser = () => {
-        axios
-            .delete(`${import.meta.env.VITE_BACKEND_URL}/users/${id}`, { headers: { Authorization: localStorage.getItem("token") } })
-            .then((res) => {
-
-            })
+        setDisplay(!display);
+        if (user) {
+            const id = user.iduser;
+            console.log(user, id);
+            axios
+                .delete(`${import.meta.env.VITE_BACKEND_URL}/users/${id}`, { headers: { Authorization: localStorage.getItem("token") } })
+                .then((res) => {
+                })
+        }
     };
 
     useEffect(() => {
-
-    }, []);
+    }, [user, display]);
 
     return (
         <div className='container'>
@@ -29,7 +32,7 @@ const Menu = ({ display, setDisplay }) => {
                 <div className='menu'>
                     <NavLink to='/classement'>
                         <button type='submit' onClick={handleDisplay}>Classement</button>
-                    </NavLink>
+                    </NavLink>ks
                 </div>
                 <div className='menu'>
                     <NavLink to='/scores'>

@@ -26,7 +26,7 @@ const Scores = ({ display, setDisplay }) => {
             setDisplay(!display);
         }
         getScores();
-    }, [user, id, display]);
+    }, [user, id, display, data]);
 
     return (
         <div className='Scores'>

@@ -3,16 +3,14 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import '../styles/Classement.scss';
 
-const Classement = ({ display, setDisplay }) => {
+const Classement = () => {
 
     const [data, setData] = useState([]);
-    const [rank, setRank] = useState(0);
 
     const getScores = () => {
         axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/scores/`, { headers: { Authorization: localStorage.getItem("token") } })
+            .get(`${import.meta.env.VITE_BACKEND_URL}/scores`, { headers: { Authorization: localStorage.getItem("token") } })
             .then((res) => {
-                console.log(res.data);
                 setData(res.data);
             })
     };
@@ -39,7 +37,7 @@ const Classement = ({ display, setDisplay }) => {
                         return (
                             <tbody className='Scores_tableau_ligne'>
                                 <tr>
-                                    <td>{index +1}</td>
+                                    <td>{index + 1}</td>
                                     <td>{e.pseudo}</td>
                                     <td>{e.date}</td>
                                     <td>{e.number_score}</td>

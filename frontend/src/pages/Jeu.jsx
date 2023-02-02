@@ -33,13 +33,17 @@ const Jeu = ({ display, setDisplay }) => {
 
     return (
         <div className='Jeu'>
+            <button onClick={() =>
+
+                console.log(user)
+            }></button>
             <div className='Jeu_entete'>
                 <div className='Jeu_entete_info'>
                     <p>Pseudo : {user && user.pseudo}</p>
                     <p>Meilleur score : {user && bestScore}</p>
                 </div>
                 <div className='Jeu_entete_time'>
-                    <h2>Temps : 10 s</h2>
+                    <h2>Temps : 20 s</h2>
                 </div>
                 <div className='Jeu_entete_menu'>
                     <NavLink to='/menu'>

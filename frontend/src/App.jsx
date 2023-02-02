@@ -16,7 +16,7 @@ function App() {
   const navigate = useNavigate();
   const [user, setUser] = useState();
   const [display, setDisplay] = useState(true);
-  
+
   useEffect(() => {
     if (!user) {
       const token = localStorage.getItem("token");
@@ -43,7 +43,7 @@ function App() {
           <Route path="/jeu" element={<Jeu display={display} setDisplay={setDisplay} />} />
           <Route path="/live" element={<Live display={display} setDisplay={setDisplay} />} />
           <Route path="/menu" element={<Menu display={display} setDisplay={setDisplay} />} />
-          <Route path="/classement" element={<Classement display={display} setDisplay={setDisplay} />} />
+          <Route path="/classement" element={<Classement />} />
           <Route path="/scores" element={<Scores display={display} setDisplay={setDisplay} />} />
         </Routes>
       </UserContext.Provider>
