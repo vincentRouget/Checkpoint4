@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import '../styles/Classement.scss';
 
@@ -36,11 +35,11 @@ const Classement = ({ display, setDisplay }) => {
                             <th>Moyenne</th>
                         </tr>
                     </thead>
-                    {data.map((e) => {
+                    {data.map((e, index) => {
                         return (
                             <tbody className='Scores_tableau_ligne'>
                                 <tr>
-                                    <td>{rank}</td>
+                                    <td>{index +1}</td>
                                     <td>{e.pseudo}</td>
                                     <td>{e.date}</td>
                                     <td>{e.number_score}</td>

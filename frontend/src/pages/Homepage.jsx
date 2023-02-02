@@ -5,7 +5,6 @@ import axios from 'axios';
 import UserContext from "../components/context/UserContext";
 import '../styles/Homepage.scss';
 
-
 const Homepage = ({ display, setDisplay }) => {
 
     const navigate = useNavigate();

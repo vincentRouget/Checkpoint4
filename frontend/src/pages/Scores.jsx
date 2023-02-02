@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import UserContext from "../components/context/UserContext";
 import '../styles/Scores.scss';
@@ -23,7 +22,6 @@ const Scores = ({ display, setDisplay }) => {
     };
 
     useEffect(() => {
-        // setDisplay(!display);
         if (data == []) {
             setDisplay(!display);
         }
@@ -33,7 +31,6 @@ const Scores = ({ display, setDisplay }) => {
     return (
         <div className='Scores'>
             <h1>Mes Scores</h1>
-            <button onClick={() => console.log(data)}>test</button>
             <h2>{user && user.pseudo}</h2>
             <div className='Scores_tableau'>
                 <table class="demo">

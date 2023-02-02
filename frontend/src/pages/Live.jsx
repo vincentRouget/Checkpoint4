@@ -1,59 +1,49 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Timer from '../components/Timer';
 import '../styles/Live.scss';
 import UserContext from "../components/context/UserContext";
 import OiMenu from '@meronex/icons/oi/OiMenu';
 import Lucas from '../../../backend/uploads/images/Lucas.jpg';
-import DevilLucas from '../../../backend/uploads/images/DevilLucas.jpg';
 import Cible from '../../../backend/uploads/images/Cible.jpg';
 
 const Live = ({ display, setDisplay }) => {
 
+    const challenge = 20;
     const { user, setUser } = useContext(UserContext);
     const current = new Date();
     const date = `${current.getFullYear()}/${current.getMonth() + 1}/${current.getDate()}`;
-    const [timer, setTimer] = useState(900);
-    const [temps, setTemps] = useState(60);
+    const [timer, setTimer] = useState(challenge);
+    const [max_time, setMax_time] = useState(challenge);
     const [number_score, setNumber_score] = useState(0);
     const [average, setAverage] = useState(0);
     const [isStart, setIsStart] = useState(true);
     const [id, setId] = useState(0);
+    const [change, setChange] = useState(false);
     const [position_x, setPosition_x] = useState(Math.random() * (1800 - 10) + 10);
-    // const [position_x, setPosition_x] = useState(1800);
     const [position_y, setPosition_y] = useState(Math.random() * (800 - 10) + 10);
-    // const [position_y, setPosition_y] = useState(800);
 
-    const getMove = () => {
-        setPosition_x(position_x + ((Math.floor(Math.random() * (200 - 50)) + 50) * fonctionVariable()));
-        if (position_x <= 20) {
-            // setPosition_x(position_x + (Math.floor(Math.random() * (300 - 200)) + 200));
-            setPosition_x(Math.random() * (1800 - 10) + 10);
-        } else if (position_x >= 1800) {
-            // setPosition_x(position_x + ((Math.floor(Math.random() * (300 - 200)) + 1) * (-200)));
-            setPosition_x(Math.random() * (1800 - 10) + 10);
-        };
-        setPosition_y(position_y + ((Math.floor(Math.random() * (200 - 50)) + 50) * fonctionVariable()));
-        if (position_y <= 20) {
-            // setPosition_x(position_y + (Math.floor(Math.random() * (300 - 200)) + 200));
-            setPosition_x(Math.random() * (800 - 10) + 10);
-        } else if (position_y >= 800) {
-            // setPosition_x(position_y + ((Math.floor(Math.random() * (300 - 200)) + 1) * (-200)));
-            setPosition_x(Math.random() * (800 - 10) + 10);
-        };
-    };
-    const fonctionVariable = () => {
-        const variable = (Math.random() - Math.random());
-        if (variable < 0) {
-            return Math.floor(variable);
-        } else if (variable > 0) {
-            return Math.ceil(variable);
-        } else {
-            return 1;
-        }
-    };
+    // const getMove = () => {
+    //     setPosition_x(position_x + ((Math.floor(Math.random() * (200 - 50)) + 50)));
+    //     if (position_x < 20 || position_x > 1800) {
+    //         setPosition_x(Math.round(Math.random() * (1800 - 10) + 10));
+    //     };
+    //     setPosition_y(position_y + ((Math.floor(Math.random() * (200 - 50)) + 50)));
+    //     if (position_y < 20 || position_y > 800) {
+    //         setPosition_x(Math.round(Math.random() * (800 - 10) + 10));
+    //     };
+    // };
+    // const fonctionVariable = () => {
+    //     const variable = (Math.random() - Math.random());
+    //     if (variable < 0) {
+    //         return Math.floor(variable);
+    //     } else if (variable > 0) {
+    //         return Math.ceil(variable);
+    //     } else {
+    //         return 1;
+    //     }
+    // };
     const getUsers = () => {
         if (user) {
             setId(user.iduser);
@@ -68,7 +58,7 @@ const Live = ({ display, setDisplay }) => {
         }
     };
     const handleAverage = () => {
-        setAverage(Math.round((number_score / (12)) * 100) / 100);
+        setAverage(Math.round((number_score / (max_time - timer)) * 100) / 100);
     };
     const handleDisplay = () => {
         setDisplay(!display);
@@ -76,26 +66,21 @@ const Live = ({ display, setDisplay }) => {
 
     useEffect(() => {
         // getMove();
-    }, [timer]);
+    }, []);
     useEffect(() => {
-        if (user) {
+        if (user && timer >= 0) {
             getUsers();
             handleAverage();
         }
-    }, [average, display]);
+    }, [average, display, position_x, position_y]);
 
     return (
         <div className='Menu'>
-            <button onClick={() => console.log(
-
-                ((Math.floor(Math.random() * (5 - 1)) + 1) * (-1))
-
-            )}>TEST</button>
             {(timer >= 0) ?
                 <div>
                     <div className='Menu_entete'>
                         <div className='Menu_entete_info'>
-                            <p>Pseudo : {user.pseudo}</p>
+                            <p onClick={() => setChange(!change)}>Pseudo : {user.pseudo}</p>
                             <p>Score : {number_score}</p>
                             <p>Moyenne : {average}</p>
                         </div>
@@ -113,12 +98,15 @@ const Live = ({ display, setDisplay }) => {
                     <div className='Menu_target'>
                         <button type='submit' onClick={() => {
                             setNumber_score(number_score + 1);
+                            setPosition_x(Math.floor(Math.random() * (1800 - 10) + 10));
+                            setPosition_y(Math.floor(Math.random() * (800 - 10) + 10));
                         }}
                             style={{ top: position_y, left: position_x }}
-                        >
-                            {/* <img src={Lucas} className='cible'></img> */}
-                            {/* <img src={DevilLucas} className='cible'></img> */}
+                        >{change ?
+                            <img src={Lucas} className='cible'></img>
+                            :
                             <img src={Cible} className='cible'></img>
+                            }
                         </button>
                     </div>
                 </div>
