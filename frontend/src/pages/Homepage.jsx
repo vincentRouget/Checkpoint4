@@ -5,6 +5,7 @@ import axios from 'axios';
 import UserContext from "../components/context/UserContext";
 import '../styles/Homepage.scss';
 
+
 const Homepage = ({ display, setDisplay }) => {
 
     const navigate = useNavigate();
@@ -33,11 +34,13 @@ const Homepage = ({ display, setDisplay }) => {
                 password,
             })
             .then((res) => {
-                const userInfo = res.data;
-                setUser({
-                    iduser: userInfo.user.iduser,
-                    pseudo: userInfo.user.pseudo,
-                });
+                if (res.data) {
+                    const userInfo = res.data;
+                    setUser({
+                        iduser: userInfo.user.iduser,
+                        pseudo: userInfo.user.pseudo,
+                    });
+                }
                 const { token } = res.data;
                 localStorage.setItem("token", "Bearer " + token);
                 navigate("/jeu", {
