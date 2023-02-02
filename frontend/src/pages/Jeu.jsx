@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import '../styles/Jeu.scss';
 import UserContext from "../components/context/UserContext";
@@ -9,12 +8,9 @@ import OiMenu from '@meronex/icons/oi/OiMenu';
 const Jeu = ({ display, setDisplay }) => {
 
     const { user, setUser } = useContext(UserContext);
-    const [score, setScore] = useState(0);
     const [bestScore, setBestScore] = useState(0);
     const [prevState, setPrevState] = useState(true);
     const [isStart, setIsStart] = useState(prevState);
-    const [temps, setTemps] = useState(60);
-    const [moyenne, setMoyenne] = useState(0);
     const [id, setId] = useState(0);
 
     const getScores = () => {

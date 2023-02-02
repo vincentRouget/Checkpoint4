@@ -5,7 +5,7 @@ function Timer({ timer, setTimer }) {
     const [reStart, setReStart] = useState(false);
 
     useEffect(() => {
-        if (timer != 0) {
+        if (timer >= 0) {
             const interval = setInterval(() => {
                 setTimer((prevState) => prevState - 1);
             }, 1000);

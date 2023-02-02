@@ -61,11 +61,10 @@
             border: none;
             border-radius: 60px;
             font-size: 50px;
-            // cursor: url("../assets/cursor.png"), pointer;
             cursor: crosshair;
             z-index: 1;
             position: absolute;
-            transition: 1200ms linear;
+            // transition: 1200ms linear;
             
 
             .cible {
